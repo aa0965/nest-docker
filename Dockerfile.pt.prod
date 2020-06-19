@@ -1,0 +1,15 @@
+FROM node:alpine
+
+WORKDIR /app
+
+COPY ./package.json ./
+RUN npm install
+
+COPY ./nest-cli.json ./
+COPY ./tsconfig.build.json ./
+COPY ./tsconfig.json ./
+
+COPY ./apps/protocol-transformer ./apps/protocol-transformer
+
+
+CMD ["npm", "run", "start", "--", "protocol-transformer"]

@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nats-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: nats
+  template:
+    metadata:
+      labels:
+        component: nats
+    spec:
+      containers:
+        - name: nats
+          image: nats:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 4222

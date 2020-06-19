@@ -1,0 +1,27 @@
+version: '2'
+services:
+  nats:
+    image: nats:latest
+    ports:
+      - '8222:8222'
+      - '4222:4222'
+      - '6222:6222'
+    restart: always
+  epts:
+    build:
+      context: .
+      dockerfile: Dockerfile.epts.dev
+    ports:
+      - '4000:3000'
+    volumes:
+      - ./node_modules:/app/node_modules
+      - ./apps/epts:/app/apps/epts
+  pt:
+    build:
+      context: .
+      dockerfile: Dockerfile.pt.dev
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./node_modules:/app/node_modules
+      - ./apps/protocol-transformer:/app/apps/protocol-transformer

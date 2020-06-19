@@ -1,0 +1,30 @@
+{
+  "collection": "@nestjs/schematics",
+  "sourceRoot": "apps/protocol-transformer/src",
+  "monorepo": true,
+  "root": "apps/protocol-transformer",
+  "compilerOptions": {
+    "webpack": true,
+    "tsConfigPath": "apps/protocol-transformer/tsconfig.app.json"
+  },
+  "projects": {
+    "protocol-transformer": {
+      "type": "application",
+      "root": "apps/protocol-transformer",
+      "entryFile": "main",
+      "sourceRoot": "apps/protocol-transformer/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/protocol-transformer/tsconfig.app.json"
+      }
+    },
+    "epts": {
+      "type": "application",
+      "root": "apps/epts",
+      "entryFile": "main",
+      "sourceRoot": "apps/epts/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/epts/tsconfig.app.json"
+      }
+    }
+  }
+}

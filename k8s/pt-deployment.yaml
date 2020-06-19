@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pt-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: pt
+  template:
+    metadata:
+      labels:
+        component: pt
+    spec:
+      containers:
+        - name: pt
+          image: rishabhrana/protocol-transformer:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 3000
+          env:
+            - name: NATS_URL
+              value: 'nats://nats-cluster-ip-service:'
+            - name: NATS_PORT
+              value: '4222'

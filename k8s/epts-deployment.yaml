@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: epts-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      component: epts
+  template:
+    metadata:
+      labels:
+        component: epts
+    spec:
+      containers:
+        - name: epts
+          image: rishabhrana/epts
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 4000
+          env:
+            - name: NATS_URL
+              value: 'nats://nats-cluster-ip-service:'
+            - name: NATS_PORT
+              value: '4222'
