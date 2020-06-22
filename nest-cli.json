@@ -25,6 +25,24 @@
       "compilerOptions": {
         "tsConfigPath": "apps/epts/tsconfig.app.json"
       }
+    },
+    "packet-types": {
+      "type": "library",
+      "root": "libs/types/packet-types",
+      "entryFile": "index",
+      "sourceRoot": "libs/types/packet-types/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/types/packet-types/tsconfig.lib.json"
+      }
+    },
+    "devices-types": {
+      "type": "library",
+      "root": "libs/types/devices-types",
+      "entryFile": "index",
+      "sourceRoot": "libs/types/devices-types/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/types/devices-types/tsconfig.lib.json"
+      }
     }
   }
 }

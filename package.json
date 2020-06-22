@@ -66,7 +66,14 @@
     "coverageDirectory": "./coverage",
     "testEnvironment": "node",
     "roots": [
-      "<rootDir>/apps/"
-    ]
+      "<rootDir>/apps/",
+      "<rootDir>/libs/"
+    ],
+    "moduleNameMapper": {
+      "bl/packet-types/(.*)": "<rootDir>/libs/types/packet-types/src/$1",
+      "bl/packet-types": "<rootDir>/libs/types/packet-types/src",
+      "bl/devices-types/(.*)": "<rootDir>/libs/types/devices-types/src/$1",
+      "bl/devices-types": "<rootDir>/libs/types/devices-types/src"
+    }
   }
 }
