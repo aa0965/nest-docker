@@ -6,6 +6,12 @@ export enum Devices {
   titan = 4
 }
 
+export type MQTTDataPacket =
+  | IMiloMqttPacket
+  | IMinionMqttPacket
+  | IMinnieMqttPacket
+  | IBranchMqttPacket;
+
 // MQTT Packets
 
 export class IMiloMqttPacket {
@@ -106,6 +112,43 @@ export class IMinionMqttPacket {
     {
       key: 'lrms3';
       value: number;
+    },
+    {
+      key: 'timestamp';
+      value: string;
+    },
+    {
+      key: 'date';
+      value: string;
+    }
+  ];
+}
+
+export class IMinnieMqttPacket {
+  values: [
+    {
+      key: 'deviceType';
+      value: 2;
+    },
+    {
+      key: 'id';
+      value: string;
+    },
+    {
+      key: 'rssi';
+      value: number;
+    },
+    {
+      key: 'counter';
+      value: number;
+    },
+    {
+      key: 'payload_len';
+      value: number;
+    },
+    {
+      key: 'msg';
+      value: string;
     },
     {
       key: 'timestamp';
