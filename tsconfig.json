@@ -12,10 +12,18 @@
     "baseUrl": "./",
     "incremental": true,
     "paths": {
-      "bl/packet-types": ["libs/types/packet-types/src"],
-      "bl/packet-types/*": ["libs/types/packet-types/src/*"],
-      "bl/devices-types": ["libs/types/devices-types/src"],
-      "bl/devices-types/*": ["libs/types/devices-types/src/*"]
+      "bl/packet-types": [
+        "libs/types/packet-types/src"
+      ],
+      "bl/packet-types/*": [
+        "libs/types/packet-types/src/*"
+      ],
+      "bl/devices-types": [
+        "libs/types/devices-types/src"
+      ],
+      "bl/devices-types/*": [
+        "libs/types/devices-types/src/*"
+      ]
     }
   }
 }

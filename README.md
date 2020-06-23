@@ -1,32 +1,90 @@
-- Running Development Environment (hot reloading support enabled):
+## Setup
 
-\$ docker-compose up --build
+### Running Development Environment
 
-- All logs will show up in a single terminal, to see individual logs:
+```bash
+docker-compose up --build
+```
 
-(see individual docker containers, get container id)
-\$ docker ps
-\$ docker logs [containerId]
+This command must be run every time a library is changed or a new package is installed
 
-- To access shell inside a container:
+To see individual logs from each service, get container id from docker ps and use docker logs
 
-\$ docker exec -it [containerId] sh
+```bash
+docker ps
+docker logs <containerId>
+```
 
-- Running Kubernetes local cluster
+To access the shell inside a container:
 
-\$ minikube start --driver=virtualbox
-\$ kubectl apply k8s/
+```bash
+docker exec -it <containerId> sh
+```
 
-- Adding new files to the project (use nest cli):
+### Running Local Kubernetes Cluster
 
-\$ nest generate [schematicType][name] [path]
+First, build images inside minikube. To access minikube docker instance, use eval command
 
-- Some schematic types:
+```bash
+minikube start --driver=virtualbox
+eval $(minikube docker-env)
+docker build -f <pathToDockerfile> .  -t <tag>
+```
 
-  - application (for new microservice)
-  - controller (for apis)
-  - service (for business logic)
-  - module (for grouping functionalities)
-  - library (for re-usable code)
+Update the k8s folder with the tag of the image created and run kubectl apply to run the cluster
 
-- Use \$ nest --help for cli help
+```bash
+kubectl apply k8s/
+```
+
+To shut down cluster, use kubectl delete
+
+```bash
+kubectl delete k8s/
+```
+
+## Adding New files to the repo
+
+Always use nest-cli to add any files to the repo.
+
+```bash
+nest generate <schematicType> <fileName> <filePath>
+```
+
+Some schematic types are:
+
+- application (for new microservice)
+- controller (for apis)
+- service (for business logic)
+- module (for code grouping)
+- library (for reusable code)
+
+For help on the cli:
+
+```bash
+nest --help
+nest generate --help
+```
+
+Ensure the setup for following is done in any new microservice:
+
+- Swagger
+- NATS
+- Required environment variables (in separate keys.ts file)
+- Global validation pipe setup
+- Helmet Middleware (api security)
+
+## Accessing Docs and SwaggerUI
+
+Use npm run docs to see the auto-generated docs
+
+```bash
+npm run docs
+```
+
+Visit localhost/api to see the SwaggerUI and interact with the endpoints
+
+## Coding practices for Nest.JS
+
+- Always create typescript interfaces as a class in a separate file with the extension .dto.ts (to support validation, swagger, other add-ons)
+- Write all the business logic in services, use minimal code in controllers

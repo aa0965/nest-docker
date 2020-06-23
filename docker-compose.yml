@@ -16,6 +16,7 @@ services:
     volumes:
       - ./node_modules:/app/node_modules
       - ./apps/epts:/app/apps/epts
+      - ./libs:/libs
   pt:
     build:
       context: .
@@ -25,3 +26,4 @@ services:
     volumes:
       - ./node_modules:/app/node_modules
       - ./apps/protocol-transformer:/app/apps/protocol-transformer
+      - ./libs:/libs
