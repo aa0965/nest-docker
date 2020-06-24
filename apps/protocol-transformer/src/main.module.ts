@@ -1,10 +1,15 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './main.controller';
-import { MainService } from './main.service';
 import { ClientsModule, Transport } from '@nestjs/microservices';
+
 import { keys } from './keys';
-import { DataPacketService } from './data-packet/data-packet.service';
-import { NATS_CLIENT } from './constants';
+import { NATS_CLIENT, MQTT_CLIENT } from './constants';
+
+import { DataPacketService } from './services/data-packet.service';
+import { PipelinesService } from './services/pipelines.service';
+
+import { TitanController } from './controllers/titan.controller';
+import { CloudController } from './controllers/cloud.controller';
+import { config } from './config';
 
 @Module({
   imports: [
@@ -13,10 +18,15 @@ import { NATS_CLIENT } from './constants';
         name: NATS_CLIENT,
         transport: Transport.NATS,
         options: { url: keys.NATS_URL + keys.NATS_PORT }
+      },
+      {
+        name: MQTT_CLIENT,
+        transport: Transport.MQTT,
+        options: { url: config.mqttUrl }
       }
     ])
   ],
-  controllers: [AppController],
-  providers: [MainService, DataPacketService]
+  controllers: [TitanController, CloudController],
+  providers: [PipelinesService, DataPacketService]
 })
 export class AppModule {}

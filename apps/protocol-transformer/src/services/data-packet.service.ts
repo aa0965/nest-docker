@@ -1,14 +1,13 @@
-import { Injectable, Inject } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 
 import { jsonDataPacket } from 'bl/packet-types';
-import { config } from '../config';
 import { MQTTDataPacket } from 'bl/devices-types';
-import { ClientProxy } from '@nestjs/microservices';
+
+import { config } from '../config';
 
 @Injectable()
 export class DataPacketService {
-  constructor(@Inject('NATS') private _nats: ClientProxy) {}
-
+  // authenticate packet from CMX and get identifier information
   private _authenticateAndGetIdentifier = async (
     deviceId: string,
     equipmentId?: number

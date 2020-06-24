@@ -1,11 +1,14 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './main.module';
 import { Transport, MicroserviceOptions } from '@nestjs/microservices';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import * as helmet from 'helmet';
-import { keys } from './keys';
 import { ValidationPipe } from '@nestjs/common';
+
+import * as helmet from 'helmet';
+
+import { keys } from './keys';
 import { config } from './config';
+
+import { AppModule } from './main.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
