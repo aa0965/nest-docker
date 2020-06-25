@@ -19,7 +19,7 @@ export class DataPacketService {
       data[mqttPacket.values[i].key] = mqttPacket.values[i].value;
     }
 
-    // ahu devices will have equipmentId present in the data object, in other packets, pass equipmentId as undefined
+    // minnie devices will have equipmentId present in the data object, in other packets, pass equipmentId as undefined
     const identifier = await this._cmx.authenticateAndGetIdentifier(
       mqttPacket.values[1].value,
       data.equipmentId || undefined

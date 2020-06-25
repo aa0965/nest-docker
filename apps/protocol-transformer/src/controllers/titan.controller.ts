@@ -1,4 +1,4 @@
-import { Controller, Inject } from '@nestjs/common';
+import { Controller, Inject, UseGuards } from '@nestjs/common';
 import {
   Payload,
   Transport,
@@ -12,19 +12,21 @@ import { PipelinesService } from '../services/pipelines.service';
 import { MQTT_CLIENT } from '../constants';
 import { CommandManagerService } from '../services/command-manager.service';
 import { IMqttCommandPacket } from '../types.dto';
+import { HandshakeGuard } from '../guards/handshake.guard';
 
 @Controller('titan')
+@UseGuards(HandshakeGuard)
 export class TitanController {
   //////////////////////////
   // Recieve Data from Titan
   //////////////////////////
 
   // Added a random line///////////
-  
+
   // Recieve MQTT data packet from titan and send it to pipeline for processing
   @EventPattern(config.siteMqttTopic + '/data/#', Transport.MQTT)
   handleData(@Payload() message: any) {
-    // console.log(message);
+    console.log(message);
     this._pipelinesService.processDataPacket(message);
   }
 

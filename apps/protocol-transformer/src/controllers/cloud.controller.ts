@@ -1,4 +1,4 @@
-import { Controller, Inject } from '@nestjs/common';
+import { Controller, Inject, UseGuards } from '@nestjs/common';
 import {
   ClientProxy,
   MessagePattern,
@@ -17,8 +17,11 @@ import {
 import { PipelinesService } from '../services/pipelines.service';
 import { config } from '../config';
 import { CommandManagerService } from '../services/command-manager.service';
+import { HandshakeGuard } from '../guards/handshake.guard';
+import { PTHandshakeService } from '../services/pt-handshake.service';
 
 @Controller('cloud')
+@UseGuards(HandshakeGuard)
 export class CloudController {
   //////////////////////////
   // Recieve Data from Cloud
@@ -38,8 +41,12 @@ export class CloudController {
   constructor(
     private _pipelinesService: PipelinesService,
     private _commandService: CommandManagerService,
+    private _handshakeService: PTHandshakeService,
     @Inject(NATS_CLIENT) private _nats: ClientProxy
   ) {
+    // perform handshake with PT Interface
+    this._handshakeService.performHandshake();
+
     // this pipeline has all data packets parsed in the correct format
     this._pipelinesService.$dataPacketPipeline.subscribe(
       this._sendNatsDataMessage

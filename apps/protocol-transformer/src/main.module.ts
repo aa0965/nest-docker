@@ -13,6 +13,7 @@ import { config } from './config';
 import { StatusPacketService } from './services/status-packet.service';
 import { CMXService } from './services/cmx.service';
 import { CommandManagerService } from './services/command-manager.service';
+import { PTHandshakeService } from './services/pt-handshake.service';
 
 @Module({
   imports: [
@@ -35,7 +36,8 @@ import { CommandManagerService } from './services/command-manager.service';
     DataPacketService,
     StatusPacketService,
     CMXService,
-    CommandManagerService
+    CommandManagerService,
+    PTHandshakeService
   ]
 })
 export class AppModule {}
