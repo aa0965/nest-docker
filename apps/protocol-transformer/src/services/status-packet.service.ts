@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { MQTTStatusPacket, StatusPacketTypes } from '../types.dto';
-import { statusPacket } from 'bl/packet-types';
+import { statusPacket } from '../shared/packetTypes.dto';
 import { config } from '../config';
 import { CMXService } from './cmx.service';
 

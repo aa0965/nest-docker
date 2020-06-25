@@ -12,6 +12,7 @@ import { CloudController } from './controllers/cloud.controller';
 import { config } from './config';
 import { StatusPacketService } from './services/status-packet.service';
 import { CMXService } from './services/cmx.service';
+import { CommandManagerService } from './services/command-manager.service';
 
 @Module({
   imports: [
@@ -33,7 +34,8 @@ import { CMXService } from './services/cmx.service';
     PipelinesService,
     DataPacketService,
     StatusPacketService,
-    CMXService
+    CMXService,
+    CommandManagerService
   ]
 })
 export class AppModule {}

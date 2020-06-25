@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 
-import { jsonDataPacket } from 'bl/packet-types';
+import { jsonDataPacket } from '../shared/packetTypes.dto';
 import { MQTTDataPacket } from '../types.dto';
 
 import { config } from '../config';

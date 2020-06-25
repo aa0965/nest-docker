@@ -8,9 +8,15 @@ import {
 
 import { NATS_CLIENT } from '../constants';
 
-import { jsonDataPacket, statusPacket } from 'bl/packet-types';
+import {
+  jsonDataPacket,
+  statusPacket,
+  commandPacket
+} from '../shared/packetTypes.dto';
 
 import { PipelinesService } from '../services/pipelines.service';
+import { config } from '../config';
+import { CommandManagerService } from '../services/command-manager.service';
 
 @Controller('cloud')
 export class CloudController {
@@ -18,9 +24,11 @@ export class CloudController {
   // Recieve Data from Cloud
   //////////////////////////
 
-  @MessagePattern('cmd', Transport.NATS)
-  handleCommand(@Payload() packet: any) {
+  @MessagePattern(`command/${config.client}/${config.site}`, Transport.NATS)
+  handleCommand(@Payload() packet: commandPacket) {
     // send command packet to titan
+    // returns an observable back that tells about the ack status
+    return this._commandService.sendCommand(packet as any);
   }
 
   /////////////////////
@@ -29,6 +37,7 @@ export class CloudController {
 
   constructor(
     private _pipelinesService: PipelinesService,
+    private _commandService: CommandManagerService,
     @Inject(NATS_CLIENT) private _nats: ClientProxy
   ) {
     // this pipeline has all data packets parsed in the correct format

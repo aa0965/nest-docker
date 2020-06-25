@@ -11,13 +11,17 @@ export enum Devices {
   titan = 4
 }
 
+////////////////////////
+// Recieved MQTT Packets
+////////////////////////
+
+// MQTT Data Packets
+
 export type MQTTDataPacket =
   | IMiloMqttPacket
   | IMinionMqttPacket
   | IMinnieMqttPacket
   | IBranchMqttPacket;
-
-// MQTT Data Packets
 
 export class IMiloMqttPacket {
   values: [
@@ -270,3 +274,48 @@ export class IMqttTitanStatusPacket {
     }
   ];
 }
+
+// MQTT Ack Packet
+
+export class IMqttAckPacket {
+  values: [
+    {
+      key: 'deviceType';
+      value: Devices;
+    },
+    {
+      key: 'id';
+      value: string;
+    },
+    {
+      key: 'message';
+      value: number;
+    },
+    {
+      key: 'counter';
+      value: number;
+    },
+    {
+      key: 'timestamp';
+      value: string;
+    },
+    {
+      key: 'date';
+      value: string;
+    }
+  ];
+}
+
+//////////////////////////
+// MQTT Packets to be sent
+//////////////////////////
+
+// Command packets
+
+export class IMqttCommandPacket {
+  location: string;
+  payload: Buffer;
+  counter: number;
+}
+
+// OTA PAckets
