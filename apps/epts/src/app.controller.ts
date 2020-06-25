@@ -5,6 +5,7 @@ import {
   Client,
   Transport,
   ClientProxy,
+  EventPattern,
 } from '@nestjs/microservices';
 
 @Controller()
@@ -22,8 +23,8 @@ export class AppController {
     return hello;
   }
 
-  @MessagePattern('hello')
-  sayhello(payload: any) {
-    console.log('NATS: ', payload);
+  @EventPattern('hell')
+  async handleUserCreated(data) {
+    console.log(data)
   }
 }

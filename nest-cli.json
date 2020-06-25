@@ -25,6 +25,15 @@
       "compilerOptions": {
         "tsConfigPath": "apps/epts/tsconfig.app.json"
       }
+    },
+    "cmx": {
+      "type": "application",
+      "root": "apps/cmx",
+      "entryFile": "main",
+      "sourceRoot": "apps/cmx/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/cmx/tsconfig.app.json"
+      }
     }
   }
 }

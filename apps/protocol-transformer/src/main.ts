@@ -15,6 +15,6 @@ async function bootstrap() {
   // app.startAllMicroservices();
   microservice.listen(() => {});
 
-  await app.listen(3000, () => console.log('PT is up and running...'));
+  await app.listen(3000, () => console.log('PT is up and running'));
 }
 bootstrap();
