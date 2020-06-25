@@ -10,6 +10,8 @@ import { PipelinesService } from './services/pipelines.service';
 import { TitanController } from './controllers/titan.controller';
 import { CloudController } from './controllers/cloud.controller';
 import { config } from './config';
+import { StatusPacketService } from './services/status-packet.service';
+import { CMXService } from './services/cmx.service';
 
 @Module({
   imports: [
@@ -27,6 +29,11 @@ import { config } from './config';
     ])
   ],
   controllers: [TitanController, CloudController],
-  providers: [PipelinesService, DataPacketService]
+  providers: [
+    PipelinesService,
+    DataPacketService,
+    StatusPacketService,
+    CMXService
+  ]
 })
 export class AppModule {}

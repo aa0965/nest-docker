@@ -6,9 +6,7 @@
   "compilerOptions": {
     "webpack": true,
     "tsConfigPath": "apps/protocol-transformer/tsconfig.app.json",
-    "plugins": [
-      "@nestjs/swagger/plugin"
-    ]
+    "plugins": ["@nestjs/swagger/plugin"]
   },
   "projects": {
     "protocol-transformer": {
@@ -36,15 +34,6 @@
       "sourceRoot": "libs/types/packet-types/src",
       "compilerOptions": {
         "tsConfigPath": "libs/types/packet-types/tsconfig.lib.json"
-      }
-    },
-    "devices-types": {
-      "type": "library",
-      "root": "libs/types/devices-types",
-      "entryFile": "index",
-      "sourceRoot": "libs/types/devices-types/src",
-      "compilerOptions": {
-        "tsConfigPath": "libs/types/devices-types/tsconfig.lib.json"
       }
     },
     "sample-setup": {

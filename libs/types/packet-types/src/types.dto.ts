@@ -1,13 +1,43 @@
-import { Devices } from 'bl/devices-types';
+enum Devices {
+  milo = 0,
+  minion = 1,
+  minnie = 2,
+  branch = 3,
+  titan = 4
+}
 
-export class jsonDataPacket {
+class novaProtocolPacket {
   client: string;
   site: string;
-  rssi: number;
   deviceType: Devices;
   identifier: string;
   deviceId: string;
-  counter: number;
   timestamp: number;
+}
+
+export class jsonDataPacket extends novaProtocolPacket {
+  rssi: number;
+  counter: number;
   data: Object;
+}
+
+enum StatusPacketTypes {
+  version = 0,
+  titan = 1
+}
+
+export class statusPacket extends novaProtocolPacket {
+  packetType: StatusPacketTypes;
+  data: versionStatusPacketData | titanStatuspacketData;
+}
+
+export class versionStatusPacketData {
+  crc: number;
+  version: number;
+}
+
+export class titanStatuspacketData {
+  status: 2 | 3;
+  route: string;
+  nexthop: string;
 }

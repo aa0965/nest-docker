@@ -8,7 +8,7 @@ import {
 
 import { NATS_CLIENT } from '../constants';
 
-import { jsonDataPacket } from 'bl/packet-types';
+import { jsonDataPacket, statusPacket } from 'bl/packet-types';
 
 import { PipelinesService } from '../services/pipelines.service';
 
@@ -49,7 +49,8 @@ export class CloudController {
   };
 
   // Send data packets via NATS to EPMX
-  private _sendNatsStatusMessage = (packet: any) => {
+  private _sendNatsStatusMessage = (packet: statusPacket) => {
+    // console.log(packet);
     const subject = 'status';
     this._nats.emit(subject, packet);
   };

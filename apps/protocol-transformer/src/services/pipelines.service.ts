@@ -7,14 +7,20 @@ import {
   IMinionMqttPacket,
   IBranchMqttPacket,
   MQTTDataPacket,
-  IMinnieMqttPacket
-} from 'bl/devices-types';
+  IMinnieMqttPacket,
+  MQTTStatusPacket
+} from '../types.dto';
 
 import { DataPacketService } from './data-packet.service';
 
+import { StatusPacketService } from './status-packet.service';
+
 @Injectable()
 export class PipelinesService {
-  constructor(private _dataPacketService: DataPacketService) {}
+  constructor(
+    private _dataPacketService: DataPacketService,
+    private _statusPacketService: StatusPacketService
+  ) {}
 
   /////////////////////////////////
   // Subjects to hold data pipeline
@@ -29,7 +35,7 @@ export class PipelinesService {
   // TODO: ADD TYPE DEFINITIONS BELOW
 
   // STATUS
-  private _statusPipeline = new Subject();
+  private _statusPipeline = new Subject<MQTTStatusPacket>();
 
   ///////////////////
   // Parsed pipelines
@@ -57,6 +63,7 @@ export class PipelinesService {
 
   // final status pipeline
   public $parsedStatusPipeline = this._statusPipeline.pipe(
+    switchMap(this._statusPacketService.createStatusPacket),
     filter(msg => !!msg)
   );
 

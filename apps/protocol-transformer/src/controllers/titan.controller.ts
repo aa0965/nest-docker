@@ -29,12 +29,13 @@ export class TitanController {
   }
 
   // Recieve MQTT status packet from titan and send it to pipeline for processing
-  @MessagePattern(config.siteMqttTopic + '/status/', Transport.MQTT)
+  @MessagePattern(config.siteMqttTopic + '/status/#', Transport.MQTT)
   handleStatus(@Payload() message: any) {
+    // console.log(message);
     this._pipelinesService.processStatusPacket(message);
   }
 
-  @MessagePattern(config.siteMqttTopic + '/ack', Transport.MQTT)
+  @MessagePattern(config.siteMqttTopic + '/ack/', Transport.MQTT)
   handleAcknowledgement(@Payload() message: any) {}
 
   /////////////////////

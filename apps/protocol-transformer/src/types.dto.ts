@@ -1,3 +1,8 @@
+export enum StatusPacketTypes {
+  version = 0,
+  titan = 1
+}
+
 export enum Devices {
   milo = 0,
   minion = 1,
@@ -12,7 +17,7 @@ export type MQTTDataPacket =
   | IMinnieMqttPacket
   | IBranchMqttPacket;
 
-// MQTT Packets
+// MQTT Data Packets
 
 export class IMiloMqttPacket {
   values: [
@@ -186,6 +191,74 @@ export class IBranchMqttPacket {
     {
       key: 'humidity';
       value: number;
+    },
+    {
+      key: 'timestamp';
+      value: string;
+    },
+    {
+      key: 'date';
+      value: string;
+    }
+  ];
+}
+
+// MQTT Status packets
+
+export type MQTTStatusPacket =
+  | IMqttVersionStatusPacket
+  | IMqttTitanStatusPacket;
+
+export class IMqttVersionStatusPacket {
+  values: [
+    {
+      key: 'deviceType';
+      value: 0 | 1 | 2 | 3;
+    },
+    {
+      key: 'id';
+      value: string;
+    },
+    {
+      key: 'crc';
+      value: number;
+    },
+    {
+      key: 'version';
+      value: number;
+    },
+    {
+      key: 'timestamp';
+      value: string;
+    },
+    {
+      key: 'date';
+      value: string;
+    }
+  ];
+}
+
+export class IMqttTitanStatusPacket {
+  values: [
+    {
+      key: 'deviceType';
+      value: 4;
+    },
+    {
+      key: 'id';
+      value: string;
+    },
+    {
+      key: 'status';
+      value: 2 | 3;
+    },
+    {
+      key: 'route';
+      value: string;
+    },
+    {
+      key: 'nexthop';
+      value: string;
     },
     {
       key: 'timestamp';
