@@ -1,10 +1,14 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
 import { Transport, MicroserviceOptions } from '@nestjs/microservices';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import * as helmet from 'helmet';
-import { keys } from './keys';
 import { ValidationPipe } from '@nestjs/common';
+
+import * as helmet from 'helmet';
+
+import { keys } from './keys';
+import { config } from './config';
+
+import { AppModule } from './main.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -12,15 +16,25 @@ async function bootstrap() {
   // Helmet Setup
   app.use(helmet());
 
-  // Microservice, NATS Setup
-  const microservice = app.connectMicroservice<MicroserviceOptions>({
+  // NATS Setup
+  const nats_microservice = app.connectMicroservice<MicroserviceOptions>({
     transport: Transport.NATS,
     options: {
       url: keys.NATS_URL + keys.NATS_PORT
     }
   });
 
-  microservice.listen(() => {});
+  nats_microservice.listen(() => {});
+
+  // MQTT Setup
+  const mqtt_microservice = app.connectMicroservice<MicroserviceOptions>({
+    transport: Transport.MQTT,
+    options: {
+      url: config.mqttUrl
+    }
+  });
+
+  mqtt_microservice.listen(() => {});
 
   // Swagger Setup
   const options = new DocumentBuilder()

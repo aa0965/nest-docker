@@ -1,5 +1,7 @@
 import { IsNumber, IsString, IsObject, IsOptional } from 'class-validator';
 
+// version: 1.0.1
+
 enum Devices {
   milo = 0,
   minion = 1,
