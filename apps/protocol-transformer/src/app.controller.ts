@@ -1,17 +1,18 @@
-import { Controller, Get, Inject } from '@nestjs/common';
+import { Controller, Get, Inject, Post, Body } from '@nestjs/common';
 import { AppService } from './app.service';
 import {
   MessagePattern,
   Client,
   Transport,
-  ClientProxy,
+  ClientProxy
 } from '@nestjs/microservices';
+import { BodyDTO } from './app.dto';
 
 @Controller()
 export class AppController {
   constructor(
     private readonly appService: AppService,
-    @Inject('NATS') private client: ClientProxy,
+    @Inject('NATS') private client: ClientProxy
   ) {
     setTimeout(() => {
       this.client.emit('hello', 'hello 1');
@@ -28,6 +29,16 @@ export class AppController {
 
     this.client.emit('hello', hello);
     return hello;
+  }
+
+  @Post()
+  async sayHi(@Body() body: BodyDTO) {
+    return body;
+  }
+
+  @Post('/hi')
+  async sayHello(@Body() body) {
+    return 'Hi ' + body.name;
   }
 
   // @MessagePattern('hello')

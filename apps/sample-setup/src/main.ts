@@ -24,10 +24,10 @@ async function bootstrap() {
 
   // Swagger Setup
   const options = new DocumentBuilder()
-    .setTitle('Protocol Transformer')
-    .setDescription('handles getting and parsing data packets from titan')
+    .setTitle('Sample Microservice')
+    .setDescription('sample setup')
     .setVersion('1.0')
-    .addTag('pt')
+    .addTag('sample-setup')
     .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('api', app, document);
@@ -35,6 +35,8 @@ async function bootstrap() {
   // validation Setup
   app.useGlobalPipes(new ValidationPipe());
 
-  await app.listen(3000, () => console.log('PT is up and running...'));
+  await app.listen(3000, () =>
+    console.log('Sample-Setup is up and running...')
+  );
 }
 bootstrap();

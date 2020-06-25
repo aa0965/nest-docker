@@ -18,7 +18,8 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./apps/nova-microservices/test/jest-e2e.json"
+    "test:e2e": "jest --config ./apps/nova-microservices/test/jest-e2e.json",
+    "docs": "npx compodoc -p tsconfig.json -s"
   },
   "dependencies": {
     "@nestjs/common": "^7.0.0",
@@ -29,11 +30,28 @@
     "mongoose": "^5.9.20",
     "nats": "^1.4.9",
     "querystring": "^0.2.0",
+    "@nestjs/passport": "^7.0.0",
+    "@nestjs/platform-socket.io": "^7.2.0",
+    "@nestjs/serve-static": "^2.1.3",
+    "@nestjs/swagger": "^4.5.11",
+    "@nestjs/websockets": "^7.2.0",
+    "bcrypt": "^5.0.0",
+    "class-transformer": "^0.2.3",
+    "class-validator": "^0.12.2",
+    "helmet": "^3.23.1",
+    "jwt-simple": "^0.5.6",
+    "mqtt": "^4.1.0",
+    "passport": "^0.4.1",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0",
+    "redis": "^3.0.2",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
-    "rxjs": "^6.5.4"
+    "rxjs": "^6.5.4",
+    "swagger-ui-express": "^4.1.4"
   },
   "devDependencies": {
+    "@compodoc/compodoc": "^1.1.11",
     "@nestjs/cli": "^7.0.0",
     "@nestjs/schematics": "^7.0.0",
     "@nestjs/testing": "^7.0.0",
@@ -41,6 +59,8 @@
     "@types/jest": "25.2.3",
     "@types/mongoose": "^5.7.27",
     "@types/node": "^13.9.1",
+    "@types/passport-local": "^1.0.33",
+    "@types/socket.io": "^2.1.8",
     "@types/supertest": "^2.0.8",
     "@typescript-eslint/eslint-plugin": "3.0.2",
     "@typescript-eslint/parser": "3.0.2",
@@ -70,7 +90,14 @@
     "coverageDirectory": "./coverage",
     "testEnvironment": "node",
     "roots": [
-      "<rootDir>/apps/"
-    ]
+      "<rootDir>/apps/",
+      "<rootDir>/libs/"
+    ],
+    "moduleNameMapper": {
+      "bl/packet-types/(.*)": "<rootDir>/libs/types/packet-types/src/$1",
+      "bl/packet-types": "<rootDir>/libs/types/packet-types/src",
+      "bl/devices-types/(.*)": "<rootDir>/libs/types/devices-types/src/$1",
+      "bl/devices-types": "<rootDir>/libs/types/devices-types/src"
+    }
   }
 }
